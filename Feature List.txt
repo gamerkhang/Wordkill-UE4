@@ -42,7 +42,7 @@ Extra features
 		-for every word you get without missing, increment a combo counter. whenever you finish a word, add 100 * combotracker in addition to whatever score you got from the word you finished.
 		-if you miss, the combo counter is reset to 0
 	-words per minute/characters per second counter?
-	-pausing, basic start menu, pause menu
+	-pausing, basic start menu, pause menu https://docs.unrealengine.com/latest/INT/Engine/UMG/QuickStart/5/index.html
 	-basic graphics- a modular sprite whose size/color can be dependent on the length of the word
 		-maybe have random fish sprites, and then have their size be dependent on word length? word color would have to stand out clearly (use the black stroke white fill concept)
 		-some kind of visual representation of combo state, e.g. happy face whose mouth gets longer and longer?
