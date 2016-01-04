@@ -1,0 +1,60 @@
+	place objects along 0, y, z
+
+	next steps:
+	spawning multiple words
+		-(later goal) not just from beginplay but from when the game actually starts
+	making sure words can't spawn on top of each other
+	random word generation (as in choosing what text)
+	adjusting speed values, font size, etc.
+	making killbox class
+
+Basic typing game features:
+	Have words randomly spawn from the left side of the screen and move to the right
+		-choose a good font size, color, etc.
+		
+	type a word to delete it
+		-check if you have started typing a word yet
+		-characters that can actually help you win: alphabetic characters, spacebar, backspace
+			-other symbols could be added but would be more complicated in terms of generating phrases
+		-if you have, keep adding characters to that word as you type until you miss a characters
+			-If you successfully type a word, increment score (e.g. 100 * # of characters in a completed word)
+		-if you haven't, see if there are any words on the screen that start w/ the letter you typed
+			-if there are, highlight the character you typed and keep it "selected"
+				-increase the font size of the word to make it clear that the player is typing THAT word
+			-if there aren't, it counts as a miss, so increment # of misses
+				possible things to do upon a miss (can be combined):
+				-decrement score
+					-could steadily decrement more score as you miss more buttons until you press backspace or type the correct letter, but this may be too harsh on fast typists
+				-alter whether or not the word you're typing is still selected
+				-work towards some kind of lose condition? (I don't like this because it again punishes fast typists)
+				-fog up your screen? (makes you do worse... but is that necessarily fun?)
+	Kill condition- whenever words touch the right side of the screen, you lose a life.
+
+Variables
+	Array of words on the screen
+	Currently "selected" word- object containing string that the player is currently typing
+	Misses (# of mistyped characters)
+	Timer (how long you've been playing)
+	Score
+	
+Extra features
+	-Combo adder!
+		-for every word you get without missing, increment a combo counter. whenever you finish a word, add 100 * combotracker in addition to whatever score you got from the word you finished.
+		-if you miss, the combo counter is reset to 0
+	-words per minute/characters per second counter?
+	-pausing, basic start menu, pause menu
+	-basic graphics- a modular sprite whose size/color can be dependent on the length of the word
+		-maybe have random fish sprites, and then have their size be dependent on word length? word color would have to stand out clearly (use the black stroke white fill concept)
+		-some kind of visual representation of combo state, e.g. happy face whose mouth gets longer and longer?
+		-messages whenever you reach specific combo counter thresholds, e.g. killtacular at 10?
+	-sound, e.g. whenever you type or miss a character, play a sound of a slightly randomized ___ (pitch? tone? idk what it is)
+	-Difficulty/time scaling? (More words as amount of time you've survived increases)
+	-hiding's idea: press tab to deselect the word that you're typing. The word that you were typing retains its progress, but you can now start trying to type another phrase on screen. this doesn't help that much, though, because the ideal player is someone who can type what they're reading, and being able to multitask doesn't really matter (yet). However, i do like the concept.
+	
+	
+Hierarchy
+	Game Mode- Contains the bindings for what classes to use as the game's defaults, e.g. game state blueprint, HUD, and player controller blueprint bindings.
+		Player Controller- contains anything related to actual controls.
+		Game State- contains anything related to current game state. Because this is a single player game, this can contain and alter the majority of the game stats, as opposed to having another player class alter them.
+		HUD- is what initially receives the call to bring the UI blueprints into the game.
+			UI blueprints- contain the game's UI elements.
